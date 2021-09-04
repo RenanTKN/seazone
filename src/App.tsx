@@ -1,6 +1,6 @@
-import { Typography } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 
+import CardWeek from "./components/CardWeek";
 import Navbar from "./components/Navbar";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,7 +22,7 @@ export default function App() {
     <div className={classes.root}>
       <Navbar />
       <main className={classes.content}>
-        <Typography variant="h1">Seazone</Typography>
+        <CardWeek />
       </main>
     </div>
   );
