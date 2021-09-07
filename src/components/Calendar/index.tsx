@@ -1,4 +1,6 @@
+import React from "react";
 import {
+  Box,
   Button,
   Card,
   Checkbox,
@@ -14,6 +16,8 @@ import {
 
 import CardContent from "./CalendarContent";
 import CardHeader from "./CalendarHeader";
+
+import { TasksContext } from "../../contexts/TasksContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,12 +39,20 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 27,
       borderRadius: "50%",
     },
-    cardBody: {},
   })
 );
 
 export default function Calendar() {
   const classes = useStyles();
+
+  const {
+    showCheckIn,
+    showCheckOut,
+    showLimpeza,
+    setShowCheckIn,
+    setShowCheckOut,
+    setShowLimpeza,
+  } = React.useContext(TasksContext);
 
   return (
     <Card className={classes.card}>
@@ -54,18 +66,44 @@ export default function Calendar() {
           <Button startIcon={<ArrowBackIosIcon />}>Semana anterior</Button>
         </Grid>
         <Grid item>
-          <Typography variant="body1">
-            Exibir:
-            <FormControlLabel control={<Checkbox checked />} label="Check-in" />
-            <FormControlLabel control={<Checkbox />} label="Check-out" />
-            <FormControlLabel control={<Checkbox />} label="Limpeza" />
+          <Typography component="span" variant="body1">
+            <Box mr={2} display="inline">
+              Exibir:
+            </Box>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={showCheckIn}
+                  onChange={() => setShowCheckIn(!showCheckIn)}
+                />
+              }
+              label="Check-in"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={showCheckOut}
+                  onChange={() => setShowCheckOut(!showCheckOut)}
+                />
+              }
+              label="Check-out"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={showLimpeza}
+                  onChange={() => setShowLimpeza(!showLimpeza)}
+                />
+              }
+              label="Limpeza"
+            />
           </Typography>
         </Grid>
         <Grid item>
           <Button endIcon={<ArrowForwardIosIcon />}>Próxima semana</Button>
         </Grid>
       </Grid>
-      <div className={classes.cardBody}>
+      <div>
         <CardHeader />
         <CardContent />
       </div>

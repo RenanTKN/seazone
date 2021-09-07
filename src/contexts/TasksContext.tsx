@@ -21,7 +21,13 @@ interface TasksContextData {
   tasks: TaskProps[];
   date: Date;
   weekTasks: TaskProps[][];
+  showCheckIn: boolean;
+  showCheckOut: boolean;
+  showLimpeza: boolean;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setShowCheckIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowCheckOut: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowLimpeza: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface TaskProviderProps {
@@ -34,6 +40,9 @@ export const TasksProvider = ({ children }: TaskProviderProps) => {
   const [tasks, setTasks] = useState(mockedData);
   const [date, setDate] = useState(new Date());
   const [weekTasks, setWeekTasks] = useState<TaskProps[][]>([]);
+  const [showCheckIn, setShowCheckIn] = useState(true);
+  const [showCheckOut, setShowCheckOut] = useState(true);
+  const [showLimpeza, setShowLimpeza] = useState(true);
 
   useEffect(() => {
     setTasks(mockedData);
@@ -42,12 +51,21 @@ export const TasksProvider = ({ children }: TaskProviderProps) => {
   useEffect(() => {
     const week = getWeek(getMonday(date));
     const weekTasks: TaskProps[][] = [];
+
+    const typesToShow: TaskType[] = [];
+    showCheckIn && typesToShow.push("checkin");
+    showCheckOut && typesToShow.push("checkout");
+    showLimpeza && typesToShow.push("limpeza");
+
     for (const day of week) {
-      const todayTasks = tasks.filter((task) => isSameDate(task.dateIn, day));
+      const todayTasks = tasks.filter(
+        (task) =>
+          isSameDate(task.dateIn, day) && typesToShow.includes(task.type)
+      );
       weekTasks.push(todayTasks);
     }
     setWeekTasks(weekTasks);
-  }, [tasks, date]);
+  }, [tasks, date, showCheckIn, showCheckOut, showLimpeza]);
 
   return (
     <TasksContext.Provider
@@ -55,7 +73,13 @@ export const TasksProvider = ({ children }: TaskProviderProps) => {
         tasks,
         date,
         weekTasks,
+        showCheckIn,
+        showCheckOut,
+        showLimpeza,
         setDate,
+        setShowCheckIn,
+        setShowCheckOut,
+        setShowLimpeza,
       }}
     >
       {children}

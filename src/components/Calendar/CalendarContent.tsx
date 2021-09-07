@@ -21,17 +21,23 @@ export default function Calendarontent() {
 
   return (
     <Grid container justifyContent="space-evenly" spacing={1}>
-      {weekTasks.map((day) => (
-        <Grid item className={classes.calendarColumn}>
-          {day.map((task) => !task.isConcluded && <TaskCard task={task} />)}
+      {weekTasks.map((day, i) => (
+        <Grid item className={classes.calendarColumn} key={i}>
+          {day.map(
+            (task) =>
+              !task.isConcluded && <TaskCard key={task.id} task={task} />
+          )}
           {day.some((task) => task.isConcluded) && (
             <>
-              <Typography variant="body1" gutterBottom>
-                <Box ml={2} fontWeight="bold">
+              <Typography component="span" variant="body1" gutterBottom>
+                <Box ml={2} mb={2} mt={2} fontWeight="bold">
                   Concluidos
                 </Box>
               </Typography>
-              {day.map((task) => task.isConcluded && <TaskCard task={task} />)}
+              {day.map(
+                (task) =>
+                  task.isConcluded && <TaskCard key={task.id} task={task} />
+              )}
             </>
           )}
         </Grid>

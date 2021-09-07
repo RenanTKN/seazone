@@ -39,7 +39,7 @@ export default function CardHeader() {
     >
       {week.map((day, i) => (
         <Grid item key={i} className={classes.dayCell}>
-          <Typography variant="h5" align="center">
+          <Typography component="span" variant="h5" align="center">
             <Grid container justifyContent="center" spacing={1}>
               <Grid item>
                 {isSameDate(today, day) ? (

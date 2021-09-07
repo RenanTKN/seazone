@@ -18,6 +18,15 @@ const names = [
 
 const getRandomName = () => names[Math.floor(Math.random() * names.length)];
 const getRandomBoolean = () => Math.random() < 0.5;
+const getRandomId = () => {
+  var result = "";
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < 6; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
 
 for (const n of range(50)) {
   mockedData.push({
@@ -30,7 +39,7 @@ for (const n of range(50)) {
       )
     ),
     time: "14:00",
-    id: "ADJ275",
+    id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
@@ -40,7 +49,7 @@ for (const n of range(50)) {
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
     time: "12:00",
-    id: "UGJ678",
+    id: getRandomId(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
   });
@@ -49,7 +58,7 @@ for (const n of range(50)) {
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
     time: "12:00",
-    id: "ADJ275",
+    id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
@@ -59,7 +68,7 @@ for (const n of range(50)) {
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
     time: "14:00",
-    id: "ADJ275",
+    id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
@@ -70,7 +79,7 @@ for (const n of range(50)) {
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
     time: "12:00",
-    id: "UGJ678",
+    id: getRandomId(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
     isConcluded: true,
@@ -80,7 +89,7 @@ for (const n of range(50)) {
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
     time: "12:00",
-    id: "ADJ275",
+    id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
