@@ -28,7 +28,7 @@ const getRandomId = () => {
   return result;
 };
 
-for (const n of range(22)) {
+for (const n of range(50)) {
   mockedData.push({
     type: "checkin",
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),

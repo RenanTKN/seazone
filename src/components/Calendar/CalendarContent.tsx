@@ -1,12 +1,13 @@
 import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 import TaskCard from "./TaskCard";
+import Loading from "../Loading";
 
 import { TasksContext } from "../../contexts/TasksContext";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     calendarColumn: {
       width: "calc(100%/7)",
@@ -14,12 +15,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Calendarontent() {
+export default function CalendarContent() {
   const classes = useStyles();
 
-  const { weekTasks } = React.useContext(TasksContext);
+  const { isLoading, weekTasks } = React.useContext(TasksContext);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Grid container justifyContent="space-evenly" spacing={1}>
       {weekTasks.map((day, i) => (
         <Grid item className={classes.calendarColumn} key={i}>

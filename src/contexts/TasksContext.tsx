@@ -20,11 +20,13 @@ export interface TaskProps {
 interface TasksContextData {
   tasks: TaskProps[];
   date: Date;
+  isLoading: boolean;
   weekTasks: TaskProps[][];
   showCheckIn: boolean;
   showCheckOut: boolean;
   showLimpeza: boolean;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setShowCheckIn: React.Dispatch<React.SetStateAction<boolean>>;
   setShowCheckOut: React.Dispatch<React.SetStateAction<boolean>>;
   setShowLimpeza: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,6 +45,7 @@ export const TasksProvider = ({ children }: TaskProviderProps) => {
   const [showCheckIn, setShowCheckIn] = useState(true);
   const [showCheckOut, setShowCheckOut] = useState(true);
   const [showLimpeza, setShowLimpeza] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setTasks(mockedData);
@@ -65,6 +68,7 @@ export const TasksProvider = ({ children }: TaskProviderProps) => {
       weekTasks.push(todayTasks);
     }
     setWeekTasks(weekTasks);
+    setIsLoading(false);
   }, [tasks, date, showCheckIn, showCheckOut, showLimpeza]);
 
   return (
@@ -72,11 +76,13 @@ export const TasksProvider = ({ children }: TaskProviderProps) => {
       value={{
         tasks,
         date,
+        isLoading,
         weekTasks,
         showCheckIn,
         showCheckOut,
         showLimpeza,
         setDate,
+        setIsLoading,
         setShowCheckIn,
         setShowCheckOut,
         setShowLimpeza,

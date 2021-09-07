@@ -52,6 +52,7 @@ export default function Calendar() {
     showCheckOut,
     showLimpeza,
     setDate,
+    setIsLoading,
     setShowCheckIn,
     setShowCheckOut,
     setShowLimpeza,
@@ -69,6 +70,7 @@ export default function Calendar() {
           <Button
             startIcon={<ArrowBackIosIcon />}
             onClick={() => {
+              setIsLoading(true);
               setDate(getPreviousWeek(date));
             }}
           >
@@ -113,6 +115,7 @@ export default function Calendar() {
           <Button
             endIcon={<ArrowForwardIosIcon />}
             onClick={() => {
+              setIsLoading(true);
               setDate(getNextWeek(date));
             }}
           >
