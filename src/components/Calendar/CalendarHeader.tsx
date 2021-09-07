@@ -1,6 +1,8 @@
+import React from "react";
 import { Avatar, Grid, Typography } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { TasksContext } from "../../contexts/TasksContext";
 
 import {
   getMonthName,
@@ -27,8 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CardHeader() {
   const classes = useStyles();
-  const week = getWeek();
-  const today = new Date();
+  const { date } = React.useContext(TasksContext);
+  const week = getWeek(date);
 
   return (
     <Grid
@@ -42,7 +44,7 @@ export default function CardHeader() {
           <Typography component="span" variant="h5" align="center">
             <Grid container justifyContent="center" spacing={1}>
               <Grid item>
-                {isSameDate(today, day) ? (
+                {isSameDate(new Date(), day) ? (
                   <Avatar className={classes.today}>{day.getDate()}</Avatar>
                 ) : (
                   day.getDate()

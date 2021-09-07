@@ -18,6 +18,7 @@ import CardContent from "./CalendarContent";
 import CardHeader from "./CalendarHeader";
 
 import { TasksContext } from "../../contexts/TasksContext";
+import { getNextWeek, getPreviousWeek } from "../../helpers";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,9 +47,11 @@ export default function Calendar() {
   const classes = useStyles();
 
   const {
+    date,
     showCheckIn,
     showCheckOut,
     showLimpeza,
+    setDate,
     setShowCheckIn,
     setShowCheckOut,
     setShowLimpeza,
@@ -63,7 +66,14 @@ export default function Calendar() {
         className={classes.cardHeader}
       >
         <Grid item>
-          <Button startIcon={<ArrowBackIosIcon />}>Semana anterior</Button>
+          <Button
+            startIcon={<ArrowBackIosIcon />}
+            onClick={() => {
+              setDate(getPreviousWeek(date));
+            }}
+          >
+            Semana anterior
+          </Button>
         </Grid>
         <Grid item>
           <Typography component="span" variant="body1">
@@ -100,7 +110,14 @@ export default function Calendar() {
           </Typography>
         </Grid>
         <Grid item>
-          <Button endIcon={<ArrowForwardIosIcon />}>Próxima semana</Button>
+          <Button
+            endIcon={<ArrowForwardIosIcon />}
+            onClick={() => {
+              setDate(getNextWeek(date));
+            }}
+          >
+            Próxima semana
+          </Button>
         </Grid>
       </Grid>
       <div>

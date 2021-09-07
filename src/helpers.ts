@@ -47,6 +47,12 @@ export const getWeek = (date = new Date()) => {
   return week;
 };
 
+export const getNextWeek = (date = new Date()) =>
+  new Date(date.setDate(date.getDate() + 7));
+
+export const getPreviousWeek = (date = new Date()) =>
+  new Date(date.setDate(date.getDate() - 7));
+
 export const getDateWithoutTime = (date: Date) =>
   new Date(date.setHours(0, 0, 0, 0));
 
