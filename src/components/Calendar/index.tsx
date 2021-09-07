@@ -11,7 +11,9 @@ import {
   ArrowBackIos as ArrowBackIosIcon,
   ArrowForwardIos as ArrowForwardIosIcon,
 } from "@material-ui/icons";
-import CardHeader from "./CardHeader";
+
+import CardContent from "./CalendarContent";
+import CardHeader from "./CalendarHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Navbar() {
+export default function Calendar() {
   const classes = useStyles();
 
   return (
@@ -65,6 +67,7 @@ export default function Navbar() {
       </Grid>
       <div className={classes.cardBody}>
         <CardHeader />
+        <CardContent />
       </div>
     </Card>
   );

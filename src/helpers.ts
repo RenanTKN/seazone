@@ -32,11 +32,12 @@ export const getWeekDayName = (weekDay: number) => weekDayNames[weekDay];
 export const getMonday = (date = new Date()) => {
   const d = new Date(date);
   d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  d.setHours(0, 0, 0, 0);
   return d;
 };
 
-export const getWeek = () => {
-  const monday = getMonday();
+export const getWeek = (date = new Date()) => {
+  const monday = getMonday(date);
   const week = [monday];
   for (let i of range(1, 7)) {
     const nextDay = new Date(monday);

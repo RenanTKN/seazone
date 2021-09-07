@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
     cardHeader: {
       padding: `${theme.spacing(3)}px 0`,
     },
+    dayCell: {
+      width: "calc(100%/7)",
+    },
     today: {
       color: theme.palette.getContrastText(deepOrange[500]),
       backgroundColor: deepOrange[500],
@@ -32,11 +35,12 @@ export default function CardHeader() {
       container
       justifyContent="space-evenly"
       className={classes.cardHeader}
+      spacing={1}
     >
       {week.map((day, i) => (
-        <Grid item key={i}>
+        <Grid item key={i} className={classes.dayCell}>
           <Typography variant="h5" align="center">
-            <Grid container spacing={1}>
+            <Grid container justifyContent="center" spacing={1}>
               <Grid item>
                 {isSameDate(today, day) ? (
                   <Avatar className={classes.today}>{day.getDate()}</Avatar>

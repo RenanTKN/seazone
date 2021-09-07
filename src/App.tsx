@@ -1,7 +1,8 @@
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 
-import CardWeek from "./components/CardWeek";
+import Calendar from "./components/Calendar";
 import Navbar from "./components/Navbar";
+import { TasksProvider } from "./contexts/TasksContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,7 +23,9 @@ export default function App() {
     <div className={classes.root}>
       <Navbar />
       <main className={classes.content}>
-        <CardWeek />
+        <TasksProvider>
+          <Calendar />
+        </TasksProvider>
       </main>
     </div>
   );
