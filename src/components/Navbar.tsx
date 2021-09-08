@@ -14,6 +14,7 @@ import {
   House as HouseIcon,
   LibraryAddCheck as LibraryAddCheckIcon,
 } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 import SeazoneLogo from "../assets/images/seazone-logo.png";
 
@@ -50,26 +51,31 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const menuItems: { label: string; icon: React.ReactNode }[] = [
+const menuItems: { label: string; icon: React.ReactNode; path: string }[] = [
   {
     label: "Controle",
     icon: <LibraryAddCheckIcon />,
+    path: "/",
   },
   {
     label: "Dashboard",
     icon: <DashboardIcon />,
+    path: "/dashboard",
   },
   {
     label: "Multicalendário",
     icon: <EventNoteIcon />,
+    path: "/multi-calendario",
   },
   {
     label: "Propriedades",
     icon: <HouseIcon />,
+    path: "/propriedades",
   },
   {
     label: "Despesas",
     icon: <CropRotateIcon />,
+    path: "/despesas",
   },
 ];
 
@@ -85,11 +91,19 @@ export default function Navbar() {
       }}
     >
       <div className={classes.drawerContainer}>
-        <div className={classes.seazoneLogo} />
+        <Link to="/">
+          <div className={classes.seazoneLogo} />
+        </Link>
         <Divider light variant="middle" className={classes.divider} />
         <List>
           {menuItems.map((item) => (
-            <ListItem button key={item.label} className={classes.listItem}>
+            <ListItem
+              component={Link}
+              to={item.path}
+              button
+              key={item.label}
+              className={classes.listItem}
+            >
               <ListItemIcon className={classes.listItemIcon}>
                 {item.icon}
               </ListItemIcon>

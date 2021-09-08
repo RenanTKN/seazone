@@ -212,14 +212,14 @@ export default function TaskCard({ task }: TaskCardProps) {
             <Box mt={2}>
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <Typography variant="body1">
+                  <Typography component="span" variant="body1">
                     Cód da reserva
                     <br />
                     IUDIQGI <FileCopyIcon fontSize="small" />
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant="body1">
+                  <Typography component="span" variant="body1">
                     {name}
                     <br /> +55 47 99123456 <FileCopyIcon fontSize="small" />{" "}
                     <WhatsAppIcon fontSize="small" />

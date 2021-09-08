@@ -1,6 +1,7 @@
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 
-import Calendar from "./components/Calendar";
+// import Calendar from "./components/Calendar";
+import Routes from "./Routes";
 import Navbar from "./components/Navbar";
 import { TasksProvider } from "./contexts/TasksContext";
 
@@ -19,14 +20,5 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function App() {
   const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
-      <Navbar />
-      <main className={classes.content}>
-        <TasksProvider>
-          <Calendar />
-        </TasksProvider>
-      </main>
-    </div>
-  );
+  return <Routes />;
 }
