@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# Seazone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto foi feito em React, é um sistema sample para gerência da operação de imóveis.
 
-## Available Scripts
+![Seazone](./img/screenshot-1.png)
 
-In the project directory, you can run:
+# Funcionalidades
 
-### `yarn start`
+- Filtro por tipos de eventos (check-in, check-out e limpeza)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Filtros](./img/filters.gif)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Escolher a semana
 
-### `yarn test`
+![Semana](./img/week.gif)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Inspecionar os cards dos eventos
 
-### `yarn build`
+![Inspecionar](./img/inspect.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Diferentes rotas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Rotas](./img/routes.gif)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Os dados utilizados são gerados no próprio frontend, e alguns deles são aleatórios
 
-### `yarn eject`
+# Técnologias utilizadas
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [React Router](https://reactrouter.com/)
+  - Utilizado pela eficiencia e para a criação de rotas, embora só a primeira rota funcione as outras estão em WIP (Work In Progress)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Material-UI](https://material-ui.com/)
+  - Material-UI possibilita a criação de forma rápida e limpa de componentes com uma interface gráfica limpa e responsiva, embora a responsividade não foi o foco do projeto, o Material-UI possibilita implementar interfaces mobile-friendly de forma simples. Outra razão pela escolha do Material-UI foi a semelhança com o design proposto e ícones disponibilizados.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [Lodash](https://lodash.com/)
+  - Bitlioteca muito útil com várias utilidades
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Outros pacotes React podem ser utilizados, mas como o projeto é apenas uma demo estes foram os pricipais escolhidos. O [axios](https://axios-http.com/), por exemplo, é um execelente pacote React para fazer requisições à uma API.
 
-## Learn More
+# Live Demo
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Acesse este projeto pelo link https://seazone-renantkn.vercel.app/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Rodando de forma local
+
+```shell
+git clone git@github.com:RenanTKN/seazone.git
+cd seazone
+yarn install # or npm install
+yarn start # or npm start
+```
+# Integrando com o backend
+
+Para integrá-lo com o backend é necessário utilizar os dados retornados pelo backend no lugar de utilizar os mocked-data do front-end.
+
+O arquivo que gera os dados para o backend é o `src/data.ts` e ele é importado pelo `src/contexts/TasksContext.tsx`. Esta mudança irá requerer algumas alterações no código, como adição de [promisses](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) e alterção de alguns types definidas no frontend.
