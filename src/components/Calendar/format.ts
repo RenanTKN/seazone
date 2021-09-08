@@ -10,3 +10,13 @@ export const formatType = (type: TaskType) => {
       return "Limpeza";
   }
 };
+
+const leadingZero = (n: number) => (n < 10 ? `0${n}` : n.toString());
+
+export const formatDate = (date: Date) => {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${leadingZero(day)}/${leadingZero(month)}/${year}`;
+};
