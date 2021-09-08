@@ -21,7 +21,7 @@ import {
   WhatsApp as WhatsAppIcon,
   Whatshot as WhatshotIcon,
 } from "@material-ui/icons";
-import { TaskProps, TasksContext, TaskType } from "../../contexts/TasksContext";
+import { TaskProps, TaskType } from "../../contexts/TasksContext";
 import { isSameDate } from "../../helpers";
 
 import CardFlag from "./CardFlag";
