@@ -12,12 +12,10 @@ import {
 } from "@material-ui/core";
 import { red, yellow } from "@material-ui/core/colors";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import {
-  FileCopy as FileCopyIcon,
-  WhatsApp as WhatsAppIcon,
-} from "@material-ui/icons";
 
 import { SelectedTaskContext } from "../../contexts/SelectedTaskContext";
+import CopyButton from "../CopyButton";
+import WhatsAppButton from "../WhatsAppButton";
 import { formatDate, formatType } from "./format";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -113,14 +111,14 @@ export default function DialogBox() {
               <Typography component="span" variant="body1">
                 Cód da reserva
                 <br />
-                IUDIQGI <FileCopyIcon fontSize="small" />
+                IUDIQGI
+                <CopyButton />
               </Typography>
             </Grid>
             <Grid item>
               <Typography component="span" variant="body1">
                 {name}
-                <br /> +55 47 99123456 <FileCopyIcon fontSize="small" />{" "}
-                <WhatsAppIcon fontSize="small" />
+                <br /> +55 47 99123456 <CopyButton /> <WhatsAppButton />
               </Typography>
             </Grid>
           </Grid>
