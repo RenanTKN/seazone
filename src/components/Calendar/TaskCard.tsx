@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Card, Grid, Typography } from "@material-ui/core";
 import { blue, green, red, yellow } from "@material-ui/core/colors";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -53,7 +53,7 @@ const getBorderColor = (type: TaskType) => {
   }
 };
 
-export default function TaskCard({ task }: TaskCardProps) {
+const TaskCard = ({ task }: TaskCardProps) => {
   const {
     dateIn,
     dateOut,
@@ -129,4 +129,6 @@ export default function TaskCard({ task }: TaskCardProps) {
       </Grid>
     </Card>
   );
-}
+};
+
+export default memo(TaskCard);
