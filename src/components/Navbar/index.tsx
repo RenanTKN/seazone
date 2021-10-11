@@ -16,9 +16,10 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-import SeazoneLogo from "../assets/images/seazone-logo.png";
+import SeazoneLogo from "../../assets/images/seazone-logo.png";
+import ProfileCard from "./ProfileCard";
 
-const drawerWidth = 200;
+const drawerWidth = 230;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerContainer: {
       overflow: "auto",
+      paddingBottom: 100,
     },
     seazoneLogo: {
       width: 131,
@@ -112,6 +114,7 @@ export default function Navbar() {
           ))}
         </List>
       </div>
+      <ProfileCard />
     </Drawer>
   );
 }
