@@ -7,12 +7,12 @@ import {
   Check as CheckIcon,
   Whatshot as WhatshotIcon,
 } from "@material-ui/icons";
-import { TaskProps, TaskType } from "../../contexts/TasksContext";
-import { isSameDate } from "../../helpers";
 
+import { TaskProps, TaskType } from "../../contexts/TasksContext";
+import { SelectedTaskContext } from "../../contexts/SelectedTaskContext";
+import { isSameDate } from "../../helpers";
 import CardFlag from "./CardFlag";
 import { formatType } from "./format";
-import DialogBox from "./DialogBox";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,8 +54,6 @@ const getBorderColor = (type: TaskType) => {
 };
 
 export default function TaskCard({ task }: TaskCardProps) {
-  const [open, setOpen] = React.useState(false);
-
   const {
     dateIn,
     dateOut,
@@ -72,66 +70,63 @@ export default function TaskCard({ task }: TaskCardProps) {
   const props = { isConcluded, color };
   const classes = useStyles(props);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const {
+    handleOpen,
+    setId,
+    setName,
+    setType,
+    setDateIn,
+    setDateOut,
+    setIsCheckinComplete,
+  } = React.useContext(SelectedTaskContext);
 
   const isCamaQuente = type === "checkin" && isSameDate(dateIn, dateOut);
 
+  const open = () => {
+    setId(id);
+    setName(name ?? "");
+    setType(type);
+    setDateIn(dateIn);
+    setDateOut(dateOut);
+    setIsCheckinComplete(isCheckinComplete);
+    handleOpen();
+  };
+
   return (
-    <>
-      <Card className={classes.card} onClick={handleOpen}>
-        <Grid container>
-          <Grid item xs={11}>
-            <Typography variant="body1" color="textSecondary">
-              <strong>
-                {formatType(type)} {time}
-              </strong>
+    <Card className={classes.card} onClick={open}>
+      <Grid container>
+        <Grid item xs={11}>
+          <Typography variant="body1" color="textSecondary" component="span">
+            <strong>
+              {formatType(type)} {time}
+            </strong>
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {id}
+          </Typography>
+          {!!name && (
+            <Typography variant="subtitle1" color="textSecondary">
+              {name}
             </Typography>
-            <Typography variant="body2" color="textSecondary">
-              {id}
-            </Typography>
-            {!!name && (
-              <Typography variant="subtitle1" color="textSecondary">
-                {name}
-              </Typography>
-            )}
-          </Grid>
-          <Grid item xs={1}>
-            <div>
-              {["checkin", "checkout"].includes(type) && (
-                <CardFlag
-                  backgroundColor={isDataComplete ? green[400] : red[400]}
-                  icon={<ChatBubbleOutlineIcon />}
-                />
-              )}
-              {isCamaQuente && (
-                <CardFlag
-                  backgroundColor={yellow[800]}
-                  icon={<WhatshotIcon />}
-                />
-              )}
-              {type === "limpeza" && isCheckinComplete && (
-                <CardFlag backgroundColor={green[400]} icon={<CheckIcon />} />
-              )}
-            </div>
-          </Grid>
+          )}
         </Grid>
-      </Card>
-      <DialogBox
-        open={open}
-        id={id}
-        name={name}
-        type={type}
-        dateIn={dateIn}
-        isCamaQuente={isCamaQuente}
-        isCheckinComplete={isCheckinComplete}
-        onClose={handleClose}
-      />
-    </>
+        <Grid item xs={1}>
+          <div>
+            {["checkin", "checkout"].includes(type) && (
+              <CardFlag
+                backgroundColor={isDataComplete ? green[400] : red[400]}
+                icon={<ChatBubbleOutlineIcon />}
+              />
+            )}
+            {isCamaQuente && (
+              <CardFlag backgroundColor={yellow[800]} icon={<WhatshotIcon />} />
+            )}
+            {type === "limpeza" && isCheckinComplete && (
+              <CardFlag backgroundColor={green[400]} icon={<CheckIcon />} />
+            )}
+          </div>
+        </Grid>
+      </Grid>
+    </Card>
   );
 }

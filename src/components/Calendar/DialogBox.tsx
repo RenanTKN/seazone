@@ -1,10 +1,10 @@
+import { useContext } from "react";
 import {
   Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Divider,
   Grid,
@@ -17,7 +17,7 @@ import {
   WhatsApp as WhatsAppIcon,
 } from "@material-ui/icons";
 
-import { TaskType } from "../../contexts/TasksContext";
+import { SelectedTaskContext } from "../../contexts/SelectedTaskContext";
 import { formatDate, formatType } from "./format";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,33 +49,24 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface DialogBoxProps {
-  open: boolean;
-  id: string;
-  name?: string;
-  type: TaskType;
-  dateIn: Date;
-  isCamaQuente: boolean;
-  isCheckinComplete: boolean;
-  onClose: () => void;
-}
-
-export default function DialogBox({
-  open,
-  id,
-  name,
-  type,
-  dateIn,
-  isCamaQuente,
-  isCheckinComplete,
-  onClose,
-}: DialogBoxProps) {
+export default function DialogBox() {
   const classes = useStyles();
+
+  const {
+    open,
+    id,
+    name,
+    type,
+    dateIn,
+    isCamaQuente,
+    isCheckinComplete,
+    handleClose,
+  } = useContext(SelectedTaskContext);
 
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -87,64 +78,60 @@ export default function DialogBox({
               {formatDate(dateIn)}
             </Typography>
           </Box>
-          <div className={classes.close} onClick={onClose}>
+          <div className={classes.close} onClick={handleClose}>
             &times;
           </div>
         </>
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          <Typography component="span" variant="body2" color="textSecondary">
-            <Grid container justifyContent="space-between">
-              <Grid item>4 adultos &middot; 1 pet &middot; 9 diárias</Grid>
-              <Grid item>
-                {!isCheckinComplete && (
-                  <span className={classes.isIncomplete}>À receber</span>
-                )}
-                {isCamaQuente && (
-                  <span className={classes.camaQuente}>Cama quente</span>
-                )}
-              </Grid>
+        <Typography component="span" variant="body2" color="textSecondary">
+          <Grid container justifyContent="space-between">
+            <Grid item>4 adultos &middot; 1 pet &middot; 9 diárias</Grid>
+            <Grid item>
+              {!isCheckinComplete && (
+                <span className={classes.isIncomplete}>À receber</span>
+              )}
+              {isCamaQuente && (
+                <span className={classes.camaQuente}>Cama quente</span>
+              )}
             </Grid>
-          </Typography>
-        </DialogContentText>
+          </Grid>
+        </Typography>
         <Divider variant="fullWidth" />
-        <DialogContentText>
-          <Typography variant="h6" color="textPrimary">
-            {id}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Av. Búzios 1800, Jurerê Internacional
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            Florianópolis - SC, CEP 123456789
-          </Typography>
-          <Box mt={2}>
-            <Grid container justifyContent="space-between">
-              <Grid item>
-                <Typography component="span" variant="body1">
-                  Cód da reserva
-                  <br />
-                  IUDIQGI <FileCopyIcon fontSize="small" />
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography component="span" variant="body1">
-                  {name}
-                  <br /> +55 47 99123456 <FileCopyIcon fontSize="small" />{" "}
-                  <WhatsAppIcon fontSize="small" />
-                </Typography>
-              </Grid>
+        <Typography variant="h6" color="textPrimary">
+          {id}
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          Av. Búzios 1800, Jurerê Internacional
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          Florianópolis - SC, CEP 123456789
+        </Typography>
+        <Box mt={2}>
+          <Grid container justifyContent="space-between">
+            <Grid item>
+              <Typography component="span" variant="body1">
+                Cód da reserva
+                <br />
+                IUDIQGI <FileCopyIcon fontSize="small" />
+              </Typography>
             </Grid>
-          </Box>
-        </DialogContentText>
+            <Grid item>
+              <Typography component="span" variant="body1">
+                {name}
+                <br /> +55 47 99123456 <FileCopyIcon fontSize="small" />{" "}
+                <WhatsAppIcon fontSize="small" />
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
       </DialogContent>
       <Divider variant="fullWidth" />
       <DialogActions>
-        <Button onClick={onClose} variant="outlined">
+        <Button onClick={handleClose} variant="outlined">
           Preencher Informações
         </Button>
-        <Button onClick={onClose} variant="outlined" autoFocus>
+        <Button onClick={handleClose} variant="outlined" autoFocus>
           Realizar Check-in
         </Button>
       </DialogActions>

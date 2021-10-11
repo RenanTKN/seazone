@@ -14,6 +14,7 @@ export const formatType = (type: TaskType) => {
 const leadingZero = (n: number) => (n < 10 ? `0${n}` : n.toString());
 
 export const formatDate = (date: Date) => {
+  if (!date) return "";
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const year = date.getFullYear();

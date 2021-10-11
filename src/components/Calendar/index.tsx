@@ -17,8 +17,10 @@ import {
 import CardContent from "./CalendarContent";
 import CardHeader from "./CalendarHeader";
 
+import { SelectedTaskProvider } from "../../contexts/SelectedTaskContext";
 import { TasksContext } from "../../contexts/TasksContext";
 import { getNextWeek, getPreviousWeek } from "../../helpers";
+import DialogBox from "./DialogBox";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,74 +61,77 @@ export default function Calendar() {
   } = React.useContext(TasksContext);
 
   return (
-    <Card className={classes.card}>
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="space-between"
-        className={classes.cardHeader}
-      >
-        <Grid item>
-          <Button
-            startIcon={<ArrowBackIosIcon />}
-            onClick={() => {
-              setIsLoading(true);
-              setDate(getPreviousWeek(date));
-            }}
-          >
-            Semana anterior
-          </Button>
+    <SelectedTaskProvider>
+      <Card className={classes.card}>
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="space-between"
+          className={classes.cardHeader}
+        >
+          <Grid item>
+            <Button
+              startIcon={<ArrowBackIosIcon />}
+              onClick={() => {
+                setIsLoading(true);
+                setDate(getPreviousWeek(date));
+              }}
+            >
+              Semana anterior
+            </Button>
+          </Grid>
+          <Grid item>
+            <Typography component="span" variant="body1">
+              <Box mr={2} display="inline">
+                Exibir:
+              </Box>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showCheckIn}
+                    onChange={() => setShowCheckIn(!showCheckIn)}
+                  />
+                }
+                label="Check-in"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showCheckOut}
+                    onChange={() => setShowCheckOut(!showCheckOut)}
+                  />
+                }
+                label="Check-out"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showLimpeza}
+                    onChange={() => setShowLimpeza(!showLimpeza)}
+                  />
+                }
+                label="Limpeza"
+              />
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              endIcon={<ArrowForwardIosIcon />}
+              onClick={() => {
+                setIsLoading(true);
+                setDate(getNextWeek(date));
+              }}
+            >
+              Próxima semana
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography component="span" variant="body1">
-            <Box mr={2} display="inline">
-              Exibir:
-            </Box>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={showCheckIn}
-                  onChange={() => setShowCheckIn(!showCheckIn)}
-                />
-              }
-              label="Check-in"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={showCheckOut}
-                  onChange={() => setShowCheckOut(!showCheckOut)}
-                />
-              }
-              label="Check-out"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={showLimpeza}
-                  onChange={() => setShowLimpeza(!showLimpeza)}
-                />
-              }
-              label="Limpeza"
-            />
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Button
-            endIcon={<ArrowForwardIosIcon />}
-            onClick={() => {
-              setIsLoading(true);
-              setDate(getNextWeek(date));
-            }}
-          >
-            Próxima semana
-          </Button>
-        </Grid>
-      </Grid>
-      <div>
-        <CardHeader />
-        <CardContent />
-      </div>
-    </Card>
+        <div>
+          <CardHeader />
+          <CardContent />
+        </div>
+      </Card>
+      <DialogBox />
+    </SelectedTaskProvider>
   );
 }
