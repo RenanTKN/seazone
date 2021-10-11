@@ -21,3 +21,10 @@ export const formatDate = (date: Date) => {
 
   return `${leadingZero(day)}/${leadingZero(month)}/${year}`;
 };
+
+export const formatHour = (hour: Date) =>
+  hour.toLocaleTimeString(navigator.language, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });

@@ -1,4 +1,6 @@
+import faker from "faker";
 import { range } from "lodash";
+import { formatHour } from "./components/Calendar/format";
 
 import { TaskProps } from "./contexts/TasksContext";
 import { getMonday } from "./helpers";
@@ -7,26 +9,11 @@ const initialDate = getMonday(new Date());
 
 export const mockedData: TaskProps[] = [];
 
-const names = [
-  "Gabriela da Silva",
-  "Pedro Paulo",
-  "Júlio Oliveira",
-  "Livia Santos",
-  "Rebeca Cardoso",
-  "Kai Correia",
-];
-
-const getRandomName = () => names[Math.floor(Math.random() * names.length)];
-const getRandomBoolean = () => Math.random() < 0.5;
-const getRandomId = () => {
-  var result = "";
-  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  var charactersLength = characters.length;
-  for (var i = 0; i < 6; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-};
+const getRandomName = () =>
+  `${faker.name.firstName()} ${faker.name.lastName()}`;
+const getRandomBoolean = () => faker.datatype.boolean();
+const getRandomId = () => faker.datatype.uuid().toUpperCase().substring(0, 6);
+const getRandomTime = () => formatHour(faker.datatype.datetime());
 
 for (const n of range(50)) {
   mockedData.push({
@@ -38,7 +25,7 @@ for (const n of range(50)) {
         initialDate.getDate() + (getRandomBoolean() ? 0 : 1) + n
       )
     ),
-    time: "14:00",
+    time: getRandomTime(),
     id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
@@ -48,7 +35,7 @@ for (const n of range(50)) {
     type: "limpeza",
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
-    time: "12:00",
+    time: getRandomTime(),
     id: getRandomId(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
@@ -57,7 +44,7 @@ for (const n of range(50)) {
     type: "checkout",
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
-    time: "12:00",
+    time: getRandomTime(),
     id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
@@ -67,7 +54,7 @@ for (const n of range(50)) {
     type: "checkin",
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
-    time: "14:00",
+    time: getRandomTime(),
     id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
@@ -78,7 +65,7 @@ for (const n of range(50)) {
     type: "limpeza",
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
-    time: "12:00",
+    time: getRandomTime(),
     id: getRandomId(),
     isCheckinComplete: getRandomBoolean(),
     isDataComplete: getRandomBoolean(),
@@ -88,7 +75,7 @@ for (const n of range(50)) {
     type: "checkout",
     dateIn: new Date(new Date().setDate(initialDate.getDate() + n)),
     dateOut: new Date(new Date().setDate(initialDate.getDate() + n)),
-    time: "12:00",
+    time: getRandomTime(),
     id: getRandomId(),
     name: getRandomName(),
     isCheckinComplete: getRandomBoolean(),
