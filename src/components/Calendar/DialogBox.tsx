@@ -128,10 +128,15 @@ export default function DialogBox() {
       </DialogContent>
       <Divider variant="fullWidth" />
       <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
+        <Button onClick={handleClose} variant="outlined" disableFocusRipple>
           Preencher Informações
         </Button>
-        <Button onClick={handleClose} variant="outlined" autoFocus>
+        <Button
+          onClick={handleClose}
+          variant="outlined"
+          disableFocusRipple
+          autoFocus
+        >
           Realizar Check-in
         </Button>
       </DialogActions>
